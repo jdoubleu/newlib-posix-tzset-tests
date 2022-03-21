@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <unity.h>
 
-TEST_CASE("tzset", "[newlib]")
-{
-    TEST_ASSERT( true );
-}
+// test_tzset.c
+void test_Mktime_should_UTCTime();
+void test_Mktime_should_LocalTimestamp(); 
 
 void app_main(void)
 {
+    printf("\n\n#####\nBEGIN testing\n#####\n\n");
+
     UNITY_BEGIN();
-    unity_run_all_tests();
+    RUN_TEST(test_Mktime_should_UTCTime);
+    RUN_TEST(test_Mktime_should_LocalTimestamp);
     UNITY_END();
 
-    unity_run_menu();
+    printf("\n\n######\nEND testing\n######\n\n");
 }
