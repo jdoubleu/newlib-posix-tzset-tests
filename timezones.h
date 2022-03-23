@@ -2,6 +2,7 @@
 #define TIMEZONES_H
 
 #include <time.h>
+#include <limits.h>
 
 // winter time is March, 21st 2022 at 8:15pm and 20 seconds
 static struct tm winter_tm = {
@@ -84,7 +85,7 @@ struct tz_test test_timezones[] = {
     {"<WINT+03>3<SUM+02>2",                      IN_SECONDS(3, 0, 0),     IN_SECONDS(2, 0, 0)},
     {"<WINT+03>3:15<SUM+02>2:30:15",             IN_SECONDS(3, 15, 0),    IN_SECONDS(2, 30, 15)},
     {"<H3M15>3:15<H2M30S15>2:30:15",             IN_SECONDS(3, 15, 0),    IN_SECONDS(2, 30, 15)},   // requires TZNAME_MAX >= 10
-    {"<+H6M20S12>6:20:12<-H4M40S14>4:40:14",     IN_SECONDS(6, 20, 12),  -IN_SECONDS(4, 40, 14)},  // requires TZNAME_MAX >= 11
+    {"<+H6M20S12>6:20:12<-H4M40S14>-4:40:14",     IN_SECONDS(6, 20, 12), -IN_SECONDS(4, 40, 14)},   // requires TZNAME_MAX >= 11
 
     /* 
      * real-world test vectors.
