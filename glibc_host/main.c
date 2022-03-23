@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define TIMEZONES_DEFINE_DATA
 #include <timezones.h>
 
 static int failed = 0;

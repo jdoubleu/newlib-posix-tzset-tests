@@ -4,8 +4,25 @@
 #include <time.h>
 #include <limits.h>
 
+#define IN_SECONDS(h, m, s) ((h) * 3600 + (m) * 60 + (s))
+#define NO_TIME INT_MIN
+
+struct tz_test {
+    const char* tzstr;
+    int offset_seconds;
+    int dst_offset_seconds;
+};
+
+extern struct tm winter_tm;
+extern struct tm summer_tm;
+extern const time_t winter_time;
+extern const time_t summer_time;
+extern struct tz_test test_timezones[];
+
+#ifdef TIMEZONES_DEFINE_DATA
+
 // winter time is March, 21st 2022 at 8:15pm and 20 seconds
-static struct tm winter_tm = {
+struct tm winter_tm = {
     .tm_sec     = 20,
     .tm_min     = 15,
     .tm_hour    = 20,
@@ -16,7 +33,7 @@ static struct tm winter_tm = {
 };
 
 // summer time is July, 15th 2022 at 10:50am and 40 seconds
-static struct tm summer_tm = {
+struct tm summer_tm = {
     .tm_sec     = 40,
     .tm_min     = 50,
     .tm_hour    = 10,
@@ -27,18 +44,8 @@ static struct tm summer_tm = {
 };
 
 // UTC unix time for the winter time
-static const time_t winter_time = 1647893720;
-static const time_t summer_time = 1657882240;
-
-struct tz_test {
-    const char* tzstr;
-    int offset_seconds;
-    int dst_offset_seconds;
-};
-
-#define IN_SECONDS(h, m, s) ((h) * 3600 + (m) * 60 + (s))
-
-#define NO_TIME INT_MIN
+const time_t winter_time = 1647893720;
+const time_t summer_time = 1657882240;
 
 struct tz_test test_timezones[] = {
     /*
@@ -106,6 +113,8 @@ struct tz_test test_timezones[] = {
     // END of list
     {NULL, NO_TIME, NO_TIME}
 };
+
+#endif // TIMEZONES_DEFINE_DATA
 
 // helper macros
 #define FOR_TIMEZONES(iter_name) for (struct tz_test* iter_name = test_timezones; iter_name->tzstr != NULL; ++iter_name)
