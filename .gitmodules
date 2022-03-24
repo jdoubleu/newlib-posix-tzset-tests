@@ -2,3 +2,6 @@
 	path = newlib-esp32
 	url = git@github.com:jdoubleu/newlib-esp32.git
 	branch = patch/newlib_tzset_posix
+[submodule "newlib-cygwin"]
+	path = newlib-cygwin
+	url = git://sourceware.org/git/newlib-cygwin.git
