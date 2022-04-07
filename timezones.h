@@ -79,7 +79,7 @@ struct tz_test test_timezones[] = {
 
     // special std names
     {"<UNK>-1",                                 -IN_SECONDS(1, 0, 0),     NO_TIME},
-    {"<UNKNOWN>-2",                             -IN_SECONDS(2, 0, 0),     NO_TIME},                  // require TZNAME_MAX >= 9
+    {"<UNKNOWN>-2",                             -IN_SECONDS(2, 0, 0),     NO_TIME},                  // require TZNAME_MAX >= 7 + 1
     {"<003>3",                                   IN_SECONDS(3, 0, 0),     NO_TIME},
     {"<+04>4",                                   IN_SECONDS(4, 0, 0),     NO_TIME},
     {"<-05>-5",                                 -IN_SECONDS(5, 0, 0),     NO_TIME},
@@ -91,8 +91,9 @@ struct tz_test test_timezones[] = {
     {"<WINT+03>3<SUM+02>",                       IN_SECONDS(3, 0, 0),     IN_SECONDS(2, 0, 0)},
     {"<WINT+03>3<SUM+02>2",                      IN_SECONDS(3, 0, 0),     IN_SECONDS(2, 0, 0)},
     {"<WINT+03>3:15<SUM+02>2:30:15",             IN_SECONDS(3, 15, 0),    IN_SECONDS(2, 30, 15)},
-    {"<H3M15>3:15<H2M30S15>2:30:15",             IN_SECONDS(3, 15, 0),    IN_SECONDS(2, 30, 15)},   // requires TZNAME_MAX >= 10
-    {"<+H6M20S12>6:20:12<-H4M40S14>-4:40:14",     IN_SECONDS(6, 20, 12), -IN_SECONDS(4, 40, 14)},   // requires TZNAME_MAX >= 11
+    {"<H3M15>3:15<H2M30S15>2:30:15",             IN_SECONDS(3, 15, 0),    IN_SECONDS(2, 30, 15)},   // requires TZNAME_MAX >= 8 + 1
+    {"<+H6M20S12>6:20:12<-H4M40S14>-4:40:14",    IN_SECONDS(6, 20, 12),  -IN_SECONDS(4, 40, 14)},   // requires TZNAME_MAX >= 9 + 1
+    {"<+0123456789ABCDEF>3:33:33",               IN_SECONDS(3, 33, 33),   NO_TIME},                 // truncates name (TZNAME_MAX < 17 + 1)
 
     /* 
      * real-world test vectors.
